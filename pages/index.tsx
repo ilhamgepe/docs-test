@@ -33,7 +33,11 @@ export default function Home({ source }: IProps) {
 }
 
 export const getServerSideProps: GetServerSideProps = async () => {
-  const datas = await fetch("http://localhost:3000/api/hello")
+  const url =
+    process.env.NODE_ENV === "production"
+      ? "https://docs-test-tawny.vercel.app"
+      : "http://localhost:3000";
+  const datas = await fetch(`${url}/api/hello`)
     .then((e) => e.json())
     .catch((e) => console.log(e));
   const { content, data } = matter(datas.data);
