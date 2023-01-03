@@ -33,6 +33,8 @@ export default function Home({ source }: IProps) {
 }
 
 export const getServerSideProps: GetServerSideProps = async () => {
+  console.log(process.env.NODE_ENV);
+
   const url =
     process.env.NODE_ENV === "production"
       ? "https://docs-test-tawny.vercel.app"
@@ -58,7 +60,6 @@ export const getServerSideProps: GetServerSideProps = async () => {
     props: {
       test: "test",
       source: mdxSource,
-      // error: data.error ?? undefined,
     },
   };
 };
