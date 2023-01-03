@@ -1,13 +1,18 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
-import type { NextApiRequest, NextApiResponse } from 'next'
+import type { NextApiRequest, NextApiResponse } from "next";
+import fs from "fs";
+import path from "path";
+import { sync } from "glob";
 
-type Data = {
-  name: string
-}
+const DOCS_PATHS = path.join(process.cwd(), "docs");
 
-export default function handler(
+export default async function handler(
   req: NextApiRequest,
-  res: NextApiResponse<Data>
+  res: NextApiResponse
 ) {
-  res.status(200).json({ name: 'John Doe' })
+  const md = fs.readFileSync(`${DOCS_PATHS}\\swr.mdx`, {
+    encoding: "utf-8",
+  });
+
+  res.status(200).json({ data: md });
 }
